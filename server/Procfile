@@ -1,0 +1,4 @@
+check-ips:/app/check-ips.sh
+update-vhosts:/app/update-vhosts.sh
+nginx: nginx
+sshd: /usr/sbin/sshd -D
