@@ -6,7 +6,7 @@ new class () {
     private const NGINX_CONFIG = '/etc/nginx/conf.d/default.conf';
     private const INITAL_NGINX_CONF = 'inital_nginx.conf';
     private const INITAL_VM_PORT = 7000;
-    private const THREE_MONTHS = 3 * 31 * 60 * 60;
+    private const THREE_MONTHS = 3 * 31 * 24 * 60 * 60;
 
     public function __construct()
     {
@@ -76,7 +76,7 @@ upstream vm' . $vmNumber . ' {
     private function removeOldCert(SplFileInfo $file): bool
     {
         if ($file->getMTime() < (time() - self::THREE_MONTHS)) {
-            unlink($file->getPath());
+            unlink($file->getPathname());
             $keyFile = str_replace('.crt', '.key', $file->getFilename());
             if (file_exists($keyFile)) {
                 unlink($keyFile);
