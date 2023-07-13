@@ -3,19 +3,14 @@ set -e
 
 # TODO allow all ip's with open Tunnels
 
-# maybe use netstat -t
+mkdir -p /app/ip-configs/
 
 function allowIps() {
-  ALLOWED_IPS=$(lsof -i -n | egrep '\<ssh\>' |grep '-' | cut -d'>' -f2 | cut -d: -f1 | uniq)
-  echo "$ALLOWED_IPS"
-
-  ALLOWED_IPS=$(netstat -t)
-  echo "$ALLOWED_IPS"
-
-  tail -f /dev/null
+  php generate-allow-ip.php
 }
 
-allowIps
-while sleep 1; do
+# sleep for 60 except if the certs change
+while true; do
   allowIps
+  inotifywait -r -e modify -e move -e create -e attrib -e delete --timeout 60 /app/certs
 done

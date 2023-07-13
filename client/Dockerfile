@@ -11,5 +11,7 @@ WORKDIR /app
 COPY ./* /app/
 
 ENTRYPOINT ["sh", "/app/entrypoint.sh"]
-CMD ["forego", "start", "-r"]
+#CMD ["forego", "start", "-r"]
+# do not restart for now:
+CMD ["forego", "start"]
 
