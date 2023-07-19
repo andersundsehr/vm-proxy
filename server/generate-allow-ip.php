@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 new class () {
-    private const IP_TIMEOUT = 8 * 60 * 60;
+    private const IP_ALLOW_TIMEOUT = 8 * 60 * 60;
 
     public function __construct()
     {
@@ -23,14 +23,14 @@ new class () {
         }
         $ips = array_unique($ips);
         foreach ($ips as $ip) {
-            $fileName = '/app/ip-configs/' . $ip . '.conf';
+            $fileName = '/app/ip-allows/' . $ip . '.conf';
             if (file_exists($fileName)) {
                 touch($fileName);
             } else {
-                file_put_contents($fileName, 'allow ' . $ip . '/32;');
+                file_put_contents($fileName, 'allow ' . $ip . '/32;' . PHP_EOL);
+                $changed = true;
             }
         }
-        dd($ips);
 
         if ($changed) {
             passthru('nginx -t', $resultCode);
@@ -44,7 +44,7 @@ new class () {
 
     private function removeOldFiles(SplFileInfo $file): bool
     {
-        if ($file->getMTime() < (time() - self::IP_TIMEOUT)) {
+        if ($file->getMTime() < (time() - self::IP_ALLOW_TIMEOUT)) {
             unlink($file->getPathname());
             return true;
         }
