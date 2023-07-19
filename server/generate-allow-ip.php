@@ -7,7 +7,7 @@ new class () {
 
     public function __construct()
     {
-        $glob = new GlobIterator('/app/ip-configs/*.conf');
+        $glob = new GlobIterator('/app/ip-allows/*.conf');
         $changed = false;
         foreach ($glob as $file) {
             if ($this->removeOldFiles($file)) {
@@ -22,6 +22,10 @@ new class () {
             $ips[] = trim($line);
         }
         $ips = array_unique($ips);
+
+        echo 'allowed Ips:' . PHP_EOL;
+        echo implode(PHP_EOL, $ips) . PHP_EOL;
+
         foreach ($ips as $ip) {
             $fileName = '/app/ip-allows/' . $ip . '.conf';
             if (file_exists($fileName)) {

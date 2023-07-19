@@ -1,9 +1,7 @@
 #!/bin/bash
 set -e
 
-# TODO allow all ip's with open Tunnels
-
-mkdir -p /app/ip-configs/
+mkdir -p /app/ip-allows/
 
 function allowIps() {
   php generate-allow-ip.php
