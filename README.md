@@ -40,14 +40,18 @@ services:
       - '0.0.0.0:80:80'
       - '0.0.0.0:443:443'
     volumes:
-      - sshd:/etc/ssh
-      - ssh:/root/.ssh
+      - ipAllows:/app/ip-allows/
+      - certs:/app/certs/
+      - sshd:/etc/ssh/
+      - ssh:/root/.ssh/
     environment:
       - INITAL_AUTHORIZED_KEYS=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOBmXh8Btp0eeuh6VbsbvvFpxoBdcOlhGR/7zcFMMgaF
       - DEFAULT_ALLOW_IP=213.61.68.122/32
       - VM_NUMBER_REGEX=/(^|\.)vm(?<vmNumber>[0-9]{2})\./
 
 volumes:
+  ipAllows:
+  certs:
   sshd:
   ssh:
 ````
