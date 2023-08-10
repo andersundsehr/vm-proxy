@@ -35,6 +35,7 @@ services:
   vm-proxy-server:
     image: andersundsehr/vm-proxy-server
     restart: unless-stopped
+    init: true
     ports:
       - '0.0.0.0:22:22'
       - '0.0.0.0:80:80'
