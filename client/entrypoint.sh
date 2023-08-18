@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 cp -r /home/user/.ssh/ /root/.ssh/
 chown -R root:root /root/.ssh
