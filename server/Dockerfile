@@ -4,7 +4,7 @@ FROM nginx:1.25.0-alpine
 
 COPY --from=forego /usr/local/bin/forego /usr/local/bin/forego
 
-RUN apk add openssh rsync bash inotify-tools php --no-cache
+RUN apk add openssh rsync bash nano inotify-tools php --no-cache
 
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf \
    && sed -i 's/worker_processes  1/worker_processes  auto/' /etc/nginx/nginx.conf \
