@@ -11,6 +11,9 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf \
    && sed -i 's/worker_connections  1024/worker_connections  10240/' /etc/nginx/nginx.conf \
    && mkdir -p '/etc/nginx/dhparam'
 
+RUN sed -i "s/AllowTcpForwarding .*/AllowTcpForwarding yes/g" /etc/ssh/sshd_config \
+   && echo 'ClientAliveInterval 15' >> /etc/ssh/sshd_config
+
 WORKDIR /app
 
 COPY ./* /app/
