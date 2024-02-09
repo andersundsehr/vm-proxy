@@ -22,7 +22,9 @@ new class () {
 
             $vmNumber = $this->getVmNumber($domain);
 
-            $domainByVmNumber[$vmNumber][] = $domain;
+            if($vmNumber) {
+                $domainByVmNumber[$vmNumber][] = $domain;
+            }
         }
 
         $result = file_get_contents(self::INITAL_NGINX_CONF);
@@ -70,7 +72,7 @@ upstream vm' . $vmNumber . ' {
     private function getVmNumber(string $domain): int
     {
         preg_match($this->getEnv('VM_NUMBER_REGEX', '/(^|\.)vm(?<vmNumber>[0-9]{2})\./'), $domain, $matches);
-        return (int)($matches['vmNumber'] ?? throw new \Exception(''));
+        return (int)($matches['vmNumber'] ?? 0);
     }
 
     private function removeOldCert(SplFileInfo $file): bool
