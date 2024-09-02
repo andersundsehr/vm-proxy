@@ -1,4 +1,4 @@
-FROM nginxproxy/forego:0.18.1-debian AS forego
+FROM nginxproxy/forego:0.18.2-debian AS forego
 
 FROM nginx:1.27.0-alpine
 
