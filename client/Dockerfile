@@ -1,6 +1,6 @@
 FROM nginxproxy/forego:0.18.3-debian AS forego
 
-FROM alpine:3.21
+FROM alpine:3.22
 
 COPY --from=forego /usr/local/bin/forego /usr/local/bin/forego
 
